@@ -1,9 +1,9 @@
-import subprocess
-
 msg = raw_input('What would you like to encrypt? ')
+key_path = raw_input('Where is your key file? ')
+data_file = raw_input('Where do you want your data to be output? ')
 
 
-def encrypt_RSA(public_key_loc, message):
+def encrypt_rsa(public_key_loc, message):
     """
     public_key_loc Path to public key
     message String to be encrypted
@@ -18,7 +18,10 @@ def encrypt_RSA(public_key_loc, message):
     return encrypted.encode('base64')
 
 
-f = open('Enc_data', 'w')
-f.write(encrypt_RSA('/Users/zachrayburn/.ssh/id_rsa.pub', msg))
-f.close()
-print "Written to Enc_data"
+try:
+    f = open(data_file, 'w')
+    f.write(encrypt_rsa(key_path, msg))
+    f.close()
+    print "Written to %s" % data_file
+except IOError:
+    print ("Write failed check data path...")

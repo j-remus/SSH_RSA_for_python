@@ -1,7 +1,9 @@
 encrypted_data = raw_input('Where is the encrypted data? ')
+priv_key = raw_input("Where your private key? ")
+data_file = raw_input("where do you want the decrypted data? ")
 
 
-def decrypt_RSA(private_key_loc, package):
+def decrypt_rsa(private_key_loc, package):
     """
     public_key_loc = Path to your private key
     package = String to be decrypted
@@ -18,6 +20,10 @@ def decrypt_RSA(private_key_loc, package):
     return decrypted
 
 
-f = open('Dec_data', 'w+')
-f.write(decrypt_RSA('/Users/zachrayburn/.ssh/id_rsa', encrypted_data))
-f.close()
+try:
+    f = open(data_file, 'w+')
+    f.write(decrypt_rsa(priv_key, encrypted_data))
+    f.close()
+    print "Written to %s" % data_file
+except IOError:
+    print ("Write failed check file path...")
